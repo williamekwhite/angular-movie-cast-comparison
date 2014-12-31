@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+
+<html ng-app="imdb.compare">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>IMDB Compare | by Windi Concepts</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+        <link rel="stylesheet" href="bower_components/html5-boilerplate/css/normalize.css">
+        <link rel="stylesheet" href="bower_components/html5-boilerplate/css/main.css">
+        <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/custom.css">
+
+        <script src="bower_components/angular/angular.js"></script>
+        <script src="bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
+        <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+        <script src="js/app.js"></script>
+        <script src="bower_components/jquery/dist/jquery.min.js"></script>
+        <script src="bower_components/html5-boilerplate/js/vendor/modernizr-2.6.2.min.js"></script>
+        <script src="bower_components/html5-boilerplate/js/plugins.js"></script>
+        <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+
+        <div class="container">
+            <div class="row col-sm-12">
+                <h1>IMDB Compare</h1>
+            </div>
+            <div class="row" ng-controller="MovieController">
+                <div class="col-sm-6">
+                    <h4>Movie #1</h4>
+                    <input type="text" ng-model="movie_1" placeholder="1st movie" typeahead-editable="false" typeahead-min-length="1" typeahead-wait-ms="200" typeahead="movie as movie.label for movie in searchMovie($viewValue)" typeahead-loading="loadingMovies_1" class="form-control">
+                    <hr class="white-space indent-9"/>
+                    <i ng-show="loadingMovies_1" class="glyphicon glyphicon-refresh"></i>
+                </div>
+                <div class="col-sm-6">
+                    <h4>Movie #2</h4>
+                    <input type="text" ng-model="movie_2" placeholder="2nd movie" typeahead-editable="false" typeahead-min-length="1" typeahead-wait-ms="200" typeahead="movie as movie.label for movie in searchMovie($viewValue)" typeahead-loading="loadingMovies_2" class="form-control">
+                    <hr class="white-space indent-9"/>
+                    <i ng-show="loadingMovies_2" class="glyphicon glyphicon-refresh"></i>
+                </div>
+                <div class="col-sm-12">
+                    <hr class="white-space indent-12"/>
+                    <div class="row">
+                        <div class="col-sm-4 col-sm-offset-4">
+                            <button class="center-block btn btn-info btn-block" ng-click="compareMovies(movie_1, movie_2)">Compare Movies</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-5">
+                    <hr class="white-space indent-12"/>
+                    <h4>Shared Actors/Actresses:</h4>
+                    <div class="list-group">
+                        <a href="#" class="list-group-item" ng-repeat="s in shared_actors">
+                            {{s}}
+                        </a>
+                    </div>
+                    <div ng-hide="shared_actors">
+                        No results
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+        <!--<script>
+            (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+            function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+            e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+            e.src='//www.google-analytics.com/analytics.js';
+            r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+            ga('create','UA-XXXXX-X');ga('send','pageview');
+        </script>-->
+    </body>
+</html>
