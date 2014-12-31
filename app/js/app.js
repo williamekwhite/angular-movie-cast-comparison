@@ -1,25 +1,32 @@
 // Settings and Variables
-var IMDB_endpoint = "http://www.omdbapi.com";
+var TMDB_endpoint = "http://api.themoviedb.org/3/";
+var TMDB_API_KEY = "9e25a9024a349928cd9a4515f533e12f";
+var TMDB_images = "https://image.tmdb.org/t/p/w185/";
+var TMDB_person_url = "https://www.themoviedb.org/person/";
+var TMDB_movie_url = "https://www.themoviedb.org/movie/";
 
 // The App
-var imdbApp = angular.module("imdb.compare", ['ui.bootstrap']);
+var movieCompareApp = angular.module("moviecompare", ['ui.bootstrap']);
 
-imdbApp.controller('MovieController', ['$scope', '$http', '$q', function($scope, $http, $q) {
+movieCompareApp.controller('MovieController', ['$scope', '$http', '$q', function($scope, $http, $q) {
     var deferred = $q.defer();
+    $scope.posterUrl = TMDB_images;
+    $scope.personUrl = TMDB_person_url;
+    $scope.movieUrl = TMDB_movie_url;
     $scope.movie_1 = null;
     $scope.movie_2 = null;
     $scope.shared_actors = [];
 
     $scope.searchMovie = function(name) {
         var searchName = "*"+name+"*";
-        return $http.get(IMDB_endpoint, {params: {s:searchName}}).
+        return $http.get(TMDB_endpoint + "search/movie", {params: {query:searchName, api_key:TMDB_API_KEY}}).
             then(function(response) {
-                if(!response.data.Search)
+                if(!response.data.results)
                 {
                     return [];
                 }
-                var results = response.data.Search.map(function(item){
-                    item.label = item.Title + " (" + item.Year + ")";
+                var results = response.data.results.map(function(item){
+                    item.label = item.title + " (" + item.release_date.slice(0,4) + ")";
                     return item;
                 });
                 return results;
@@ -32,7 +39,7 @@ imdbApp.controller('MovieController', ['$scope', '$http', '$q', function($scope,
             return;
         }
 
-        $q.all([$scope.findMovie(movie_1.imdbID), $scope.findMovie(movie_2.imdbID)]).
+        $q.all([$scope.findMovieCredits(movie_1.id), $scope.findMovieCredits(movie_2.id)]).
             then(function(results){
                 deferred.resolve(results);
                 $scope.compareActors(results);
@@ -40,22 +47,24 @@ imdbApp.controller('MovieController', ['$scope', '$http', '$q', function($scope,
     };
 
     $scope.compareActors = function(movies) {
-        var actors_1 = movies[0].Actors.split(", ");
-        var actors_2 = movies[1].Actors.split(", ");
+        var actors_1 = movies[0].cast;
+        var actors_2 = movies[1].cast;
         var shared_acts = [];
         for(x in actors_1)
         {
             var a = actors_1[x];
-            if(actors_2.lastIndexOf(a) != -1)
-            {
-                shared_acts.push(a);
+            for(y in actors_2) {
+                if (a.id == actors_2[y].id) {
+                    shared_acts.push(a);
+                    break;
+                }
             }
         }
         $scope.shared_actors = shared_acts;
     };
 
-    $scope.findMovie = function(id) {
-        return $http.get(IMDB_endpoint, {params: {i:id, plot:"full"}}).
+    $scope.findMovieCredits = function(id) {
+        return $http.get(TMDB_endpoint + "movie/" + id + "/credits", {params: {api_key:TMDB_API_KEY}}).
             then(function(response) {
                 if(!response.data)
                 {
