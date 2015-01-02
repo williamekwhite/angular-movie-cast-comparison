@@ -28,7 +28,10 @@
 
         <div class="container">
             <div class="row col-sm-12">
-                <h1>Movie Cast Comparison</h1>
+                <h1>
+                    Movie Cast Comparison<br/>
+                    <small>by <a href="http://windiconcepts.com">Windi Concepts</a></small>
+                </h1>
             </div>
             <div class="row" ng-controller="MovieController">
                 <div class="col-sm-6">
@@ -36,36 +39,53 @@
                     <input type="text" ng-model="movie_1" placeholder="1st movie" typeahead-editable="false" typeahead-min-length="1" typeahead-wait-ms="200" typeahead="movie as movie.label for movie in searchMovie($viewValue)" typeahead-loading="loadingMovies_1" class="form-control">
                     <hr class="white-space indent-9"/>
                     <i ng-show="loadingMovies_1" class="glyphicon glyphicon-refresh"></i>
-                    <a ng-if="movie_1.id" href="{{movieUrl + movie_1.id}}" target="_blank">{{movie_1.label}}</a>
-                    <img ng-if="movie_1.poster_path" ng-src="{{posterUrl + movie_1.poster_path}}" class="img-responsive"/>
+                    <a ng-if="movie_1" href="{{movieUrl + movie_1.id}}" target="_blank" class="poster-link">
+                        <img ng-if="movie_1.poster_path" ng-src="{{posterUrl + movie_1.poster_path}}" class="img-responsive"/>
+                        <span ng-if="!movie_1.poster_path">{{movie_1.label}}</span>
+                    </a>
                 </div>
                 <div class="col-sm-6">
                     <h4>Movie #2</h4>
                     <input type="text" ng-model="movie_2" placeholder="2nd movie" typeahead-editable="false" typeahead-min-length="1" typeahead-wait-ms="200" typeahead="movie as movie.label for movie in searchMovie($viewValue)" typeahead-loading="loadingMovies_2" class="form-control">
                     <hr class="white-space indent-9"/>
                     <i ng-show="loadingMovies_2" class="glyphicon glyphicon-refresh"></i>
-                    <a ng-if="movie_2.id" href="{{movieUrl + movie_2.id}}" target="_blank">{{movie_2.label}}</a>
-                    <img ng-if="movie_2.poster_path" ng-src="{{posterUrl + movie_2.poster_path}}" class="img-responsive"/>
+                    <a ng-if="movie_2" href="{{movieUrl + movie_2.id}}" target="_blank" class="poster-link">
+                        <img ng-if="movie_2.poster_path" ng-src="{{posterUrl + movie_2.poster_path}}" class="img-responsive"/>
+                        <span ng-if="!movie_2.poster_path">{{movie_2.label}}</span>
+                    </a>
                 </div>
                 <div class="col-sm-12">
-                    <hr class="white-space indent-12"/>
+                    <hr class="white-space indent-24"/>
                     <div class="row">
                         <div class="col-sm-4 col-sm-offset-4">
-                            <button class="center-block btn btn-info btn-block" ng-click="compareMovies(movie_1, movie_2)">Compare Movies</button>
+                            <button class="center-block btn btn-info btn-block btn-lg" ng-click="compareMovies(movie_1, movie_2)">Compare Movies</button>
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-5">
                     <hr class="white-space indent-12"/>
-                    <h4>Shared Actors/Actresses:</h4>
-                    <div class="list-group">
-                        <a target="_blank" href="{{personUrl + s.id}}" class="list-group-item" ng-repeat="s in shared_actors | orderBy: 'cast_id'">
+                    <h4>Shared Actors/Actresses <span class="badge">{{shared_actors.length}}</span></h4>
+                    <div ng-show="shared_actors" class="list-group">
+                        <a target="_blank" href="{{personUrl + s.id}}" class="list-group-item" ng-repeat="s in shared_actors | orderBy: 'order'">
                             {{s.name}}
                         </a>
                     </div>
                     <div ng-hide="shared_actors">
                         No results
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container footer" ng-controller="SystemController">
+            <hr class="indent-32 white-space"/>
+            <hr/>
+            <div class="row">
+                <div class="col-sm-4">
+                    <small>All movie results courtesy of <a href="https://www.themoviedb.org/">TMDb</a></small>
+                </div>
+                <div class="col-sm-12">
+                    &copy; {{date | date:'yyyy'}} Windi Concepts. All Rights Reserved.
                 </div>
             </div>
         </div>

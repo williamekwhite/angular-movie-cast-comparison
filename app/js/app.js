@@ -8,8 +8,13 @@ var TMDB_movie_url = "https://www.themoviedb.org/movie/";
 // The App
 var movieCompareApp = angular.module("moviecompare", ['ui.bootstrap']);
 
+movieCompareApp.controller('SystemController', ['$scope', function($scope) {
+    $scope.date = new Date();
+}]);
+
 movieCompareApp.controller('MovieController', ['$scope', '$http', '$q', function($scope, $http, $q) {
     var deferred = $q.defer();
+
     $scope.posterUrl = TMDB_images;
     $scope.personUrl = TMDB_person_url;
     $scope.movieUrl = TMDB_movie_url;
@@ -19,7 +24,7 @@ movieCompareApp.controller('MovieController', ['$scope', '$http', '$q', function
 
     $scope.searchMovie = function(name) {
         var searchName = "*"+name+"*";
-        return $http.get(TMDB_endpoint + "search/movie", {params: {query:searchName, api_key:TMDB_API_KEY}}).
+        return $http.get(TMDB_endpoint + "search/movie", {params: {query:searchName, search_type: "ngram", api_key:TMDB_API_KEY}}).
             then(function(response) {
                 if(!response.data.results)
                 {
@@ -34,7 +39,7 @@ movieCompareApp.controller('MovieController', ['$scope', '$http', '$q', function
     };
 
     $scope.compareMovies = function(movie_1, movie_2) {
-        if(movie_1 == null || movie_2 == null)
+        if(!movie_1 || !movie_2)
         {
             return;
         }

@@ -36,13 +36,13 @@ hr.indent-72 {margin: 6em 0;}
 hr.white-space{margin-top: 0;}
 
 /* solid indents */
-hr.solid{border-bottom:1px solid #B4B4B4; margin: 0;}
+hr.solid{border-bottom:1px solid #B4B4B4;}
 
 /* dotted indents */
-hr.dotted{border-bottom:1px dotted #B4B4B4; margin: 0;}
+hr.dotted{border-bottom:1px dotted #B4B4B4;}
 
 /* dashed indents */
-hr.dashed{border-bottom:1px dashed #B4B4B4; margin: 0;}
+hr.dashed{border-bottom:1px dashed #B4B4B4;}
 
-/* mobile indents */
-hr.mobile {display: none;}
+/* poster links */
+.poster-link {display: inline-block;}
