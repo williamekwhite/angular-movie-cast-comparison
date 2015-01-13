@@ -36,7 +36,7 @@
             <div class="row" ng-controller="MovieController">
                 <div class="col-sm-6">
                     <h4>Movie #1</h4>
-                    <input type="text" ng-model="movie_1" placeholder="1st movie" typeahead-editable="false" typeahead-min-length="1" typeahead-wait-ms="200" typeahead="movie as movie.label for movie in searchMovie($viewValue)" typeahead-loading="loadingMovies_1" class="form-control">
+                    <input tabindex=1 type="text" ng-model="movie_1" placeholder="1st movie" typeahead-editable="false" typeahead-min-length="1" typeahead-wait-ms="200" typeahead="movie as movie.label for movie in searchMovie($viewValue)" typeahead-loading="loadingMovies_1" class="form-control">
                     <hr class="white-space indent-9"/>
                     <i ng-show="loadingMovies_1" class="glyphicon glyphicon-refresh"></i>
                     <a ng-if="movie_1" href="{{movieUrl + movie_1.id}}" target="_blank" class="poster-link">
@@ -46,7 +46,7 @@
                 </div>
                 <div class="col-sm-6">
                     <h4>Movie #2</h4>
-                    <input type="text" ng-model="movie_2" placeholder="2nd movie" typeahead-editable="false" typeahead-min-length="1" typeahead-wait-ms="200" typeahead="movie as movie.label for movie in searchMovie($viewValue)" typeahead-loading="loadingMovies_2" class="form-control">
+                    <input tabindex=2 type="text" ng-model="movie_2" placeholder="2nd movie" typeahead-editable="false" typeahead-min-length="1" typeahead-wait-ms="200" typeahead="movie as movie.label for movie in searchMovie($viewValue)" typeahead-loading="loadingMovies_2" class="form-control">
                     <hr class="white-space indent-9"/>
                     <i ng-show="loadingMovies_2" class="glyphicon glyphicon-refresh"></i>
                     <a ng-if="movie_2" href="{{movieUrl + movie_2.id}}" target="_blank" class="poster-link">
@@ -58,7 +58,7 @@
                     <hr class="white-space indent-24"/>
                     <div class="row">
                         <div class="col-sm-4 col-sm-offset-4">
-                            <button class="center-block btn btn-info btn-block btn-lg" ng-click="compareMovies(movie_1, movie_2)">Compare Movies</button>
+                            <button tabindex=3 class="center-block btn btn-info btn-block btn-lg" ng-click="compareMovies(movie_1, movie_2)">Compare Movies</button>
                         </div>
                     </div>
                 </div>
@@ -88,16 +88,7 @@
                     &copy; {{date | date:'yyyy'}} Windi Concepts. All Rights Reserved.
                 </div>
             </div>
+            <hr class="indent-12 white-space"/>
         </div>
-
-        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
-        <!--<script>
-            (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
-            function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
-            e=o.createElement(i);r=o.getElementsByTagName(i)[0];
-            e.src='//www.google-analytics.com/analytics.js';
-            r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
-            ga('create','UA-XXXXX-X');ga('send','pageview');
-        </script>-->
     </body>
 </html>
