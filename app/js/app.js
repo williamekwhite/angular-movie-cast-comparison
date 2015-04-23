@@ -1,7 +1,7 @@
 // Settings and Variables
 var TMDB_endpoint = "http://api.themoviedb.org/3/";
 var TMDB_API_KEY = "9e25a9024a349928cd9a4515f533e12f";
-var TMDB_images = "https://image.tmdb.org/t/p/w185/";
+var TMDB_images = "https://image.tmdb.org/t/p/w185";
 var TMDB_person_url = "https://www.themoviedb.org/person/";
 var TMDB_movie_url = "https://www.themoviedb.org/movie/";
 
